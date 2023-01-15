@@ -8,7 +8,7 @@ namespace Menu_arrays
     {
         static void Main(string[] args)
         {
-            int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 87, 128, 49, 110, 121, 12, 13, 44, 85, 0, 0, 0, 0, 0, 0, 10000, 1 };
+            int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 870, 128, 49, 110, 121, 12, 13, 44, 85, 0, 0, 0, 0, 0, 0, 10000, 1 };
             int nElementsPlena = 15;
             Console.WriteLine(nElementsPlena);
             int[] taulaBuida = new int[100];
@@ -16,7 +16,7 @@ namespace Menu_arrays
             string num = Menu();
             Console.Clear();
 
-            while (num != "14")
+            while (num != "15")
             {
 
 
@@ -115,9 +115,9 @@ namespace Menu_arrays
 
                     case "10":
 
-                        Console.WriteLine("Valor mes gran: ");
-                        int valorGran = valorMesGran(taulaPlena, nElementsPlena);
-                        Console.WriteLine(valorGran);
+                        
+                        
+                        Console.WriteLine($"El valor mes gran es {valorMesGran(taulaPlena, nElementsPlena)}");
                         Thread.Sleep(2000);
 
 
@@ -126,10 +126,63 @@ namespace Menu_arrays
 
                     case "11":
 
-                        Console.WriteLine("Posicio valor mes gran: ");
-                        int posValorGran = posicioValorMesGran(taulaPlena, nElementsPlena);
-                        Console.WriteLine(posValorGran);
+                       
+                        Console.WriteLine($"El valor mes gran {valorMesGran(taulaPlena, nElementsPlena)} es troba a la posició index {posicioValorMesGran(taulaPlena, nElementsPlena)}");
                         Thread.Sleep(2000);
+
+
+
+                        break;
+
+                    case "12":
+                        int valor;
+                        Console.WriteLine("Valor a buscar: ");
+                        valor = int.Parse(Console.ReadLine());
+                        if (valorBuscar(taulaPlena, nElementsPlena, valor))
+                            Console.WriteLine($"Valor Trobat a la posició index {posValorBuscar(taulaPlena,nElementsPlena,valor)}");
+                        else
+                            Console.WriteLine("Valor no Trobat");
+                        
+                        Thread.Sleep(2000);
+
+
+
+                        break;
+
+                    case "13":
+
+                        int posDonada, valor2;
+                        bool trobat2 = false;
+                        Console.WriteLine("A partir de quina posicio vols buscar el valor: ");
+                        posDonada = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Quin valor vols buscar: ");
+                        valor2 = int.Parse(Console.ReadLine());
+                        posValorBuscarNpos(taulaPlena, nElementsPlena, valor2, posDonada, ref trobat2);
+                        if (trobat2)
+                        {
+                            Console.WriteLine($"La posicio de {valor2} a partir de la posicio {posDonada} es {posValorBuscarNpos(taulaPlena, nElementsPlena, valor2, posDonada, ref trobat2)}");
+                        }
+                        else
+                        Console.WriteLine($"{valor2} no trobat");
+                        continuar();
+
+
+
+                        break;
+
+                    case "14":
+
+                        int posBorrar;
+                        Console.WriteLine("Quina posicio vols esborrar: ");
+                        posBorrar = int.Parse(Console.ReadLine());
+                        MostrarTaula(taulaPlena);
+                        taulaPlena = eliminarValor(taulaPlena, ref nElementsPlena, posBorrar);
+                        MostrarTaulaN(taulaPlena, nElementsPlena);
+                       
+
+
+                        continuar();
+
 
 
 
@@ -227,6 +280,11 @@ namespace Menu_arrays
             Console.Clear();
         }
 
+        static void continuar()
+        {
+            Console.WriteLine("Presiona per continuar: ");
+            Console.ReadKey();
+        }
         static void MostrarTaula(int[] taula)
         {
             Console.Clear();
@@ -235,6 +293,8 @@ namespace Menu_arrays
             Thread.Sleep(3000);
 
         }
+
+      
 
         static void MostrarTaulaN(int[] taula, int n)
         {
@@ -350,7 +410,7 @@ namespace Menu_arrays
             int valorGran = int.MinValue;
 
 
-            for (int i = 0; i < nElements - 1; i++)
+            for (int i = 0; i < nElements; i++)
             {
 
                 if (taulaPlena[i] > valorGran)
@@ -371,7 +431,7 @@ namespace Menu_arrays
             int cont = 0, pos = 0;
 
 
-            for (int i = 0; i < nElements - 1; i++)
+            for (int i = 0; i < nElements; i++)
             {
 
                 if (taulaPlena[i] > valorGran)
@@ -393,7 +453,99 @@ namespace Menu_arrays
             return pos;
 
         }
-    }
 
+
+        static bool valorBuscar(int[] taulaPlena, int nElements, int valorBuscar)
+        {
+            
+            bool trobat = false;
+
+            for (int i = 0; i < nElements; i++)
+            {
+
+                if (valorBuscar == taulaPlena[i])
+                    trobat = true;
+
+
+            }
+
+            return trobat;
+
+            
+
+
+        }
+
+        static int posValorBuscar(int[] taulaPlena, int nElements, int valorBuscar)
+        {
+
+            int cont = 0;
+            int pos = 0;
+
+            for (int i = 0; i < nElements; i++)
+            {
+
+                if (valorBuscar == taulaPlena[i])
+                    pos = cont;
+
+                cont++;
+            }
+
+            return pos;
+
+
+
+
+        }
+
+        static int posValorBuscarNpos(int[] taulaPlena, int nElements, int valorBuscar, int posDonada, ref bool trobat)
+        {
+
+            int cont = 0;
+            int pos = 0;
+
+            for (int i = posDonada; i < nElements; i++)
+            {
+
+                if (valorBuscar == taulaPlena[i])
+                {
+                    pos = cont;
+                    trobat = true;
+                    i = nElements;
+                    
+                }
+                cont++;
+            }
+
+            return pos;
+
+
+
+
+        }
+
+        static int[] eliminarValor(int[] taulaPlena, ref int nElements, int posBorrar)
+        {
+
+            if (posBorrar == nElements)
+            {
+                nElements--;
+            }
+
+            else
+            {
+                for (int i = posBorrar; i < nElements-1; i++)
+                {
+                    taulaPlena[i] = taulaPlena[i + 1];
+
+                }
+            }
+
+            return taulaPlena;
+
+
+        } 
+        
+    }    
 }
 
