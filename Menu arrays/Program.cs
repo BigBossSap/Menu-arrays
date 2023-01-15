@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 namespace Menu_arrays
@@ -7,12 +8,14 @@ namespace Menu_arrays
     {
         static void Main(string[] args)
         {
-            int[] taula = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
-            int[] taulaBuida = new int[30];
+            int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 87, 128, 49, 110, 121, 12, 13, 44, 85, 0, 0, 0, 0, 0, 0, 10000, 1 };
+            int nElementsPlena = 15;
+            Console.WriteLine(nElementsPlena);
+            int[] taulaBuida = new int[100];
 
             string num = Menu();
             Console.Clear();
-            
+
             while (num != "14")
             {
 
@@ -21,23 +24,23 @@ namespace Menu_arrays
                 switch (num)
                 {
                     case "1":
-                      
-                        MostrarTaula(taula);
+
+                        MostrarTaula(taulaPlena);
                         break;
 
                     case "2":
-                        int n;                     
+                        int n;
                         Console.WriteLine("Quant elements de la taula vols mostrar: ");
                         n = Convert.ToInt32(Console.ReadLine());
-                        MostrarTaulaN(taula,n);
+                        MostrarTaulaN(taulaPlena, n);
                         break;
                     case "3":
 
-                        taulaBuida=EmplenarTaulaBuida(taulaBuida);
+                        taulaBuida = EmplenarTaulaBuida(taulaBuida);
                         MostrarTaula(taulaBuida);
                         Thread.Sleep(3000);
                         taulaBuida = new int[30];
-                      
+
                         break;
                     case "4":
                         int n2;
@@ -63,23 +66,83 @@ namespace Menu_arrays
 
                         break;
                     case "6":
-                       
+
+                        taulaBuida = EmplenarTaulaBuidaTeclat(taulaBuida);
+                        MostrarTaula(taulaBuida);
+                        Thread.Sleep(3000);
+                        taulaBuida = new int[30];
+
                         break;
                     case "7":
-                        
+
+                        Console.WriteLine("Quants elements te la taula? ");
+                        int nElements = Convert.ToInt32(Console.ReadLine());
+                        int[] taulaBuida2 = new int[nElements + 1];
+                        Console.WriteLine("Nou valor: ");
+                        int valorAfegir = Convert.ToInt32(Console.ReadLine());
+                        Random rnd = new Random();
+
+
+                        for (int i = 0; i < nElements; i++)
+                        {
+                            int n4 = rnd.Next(101);
+                            taulaBuida2[i] = n4;
+                        }
+
+                        MostrarTaula(taulaBuida2);
+                        Thread.Sleep(2000);
+                        AfegirNouValor(taulaBuida2, ref nElements, valorAfegir);
+                        MostrarTaula(taulaBuida2);
+                        Thread.Sleep(2000);
+
                         break;
                     case "8":
-                        
+
+
+
+                        break;
+
+                    case "9":
+
+                        Console.WriteLine("Mitjana d'una taula: ");
+                        int mitjana = MitjanaTaula(taulaPlena, nElementsPlena);
+                        Console.WriteLine(mitjana);
+                        Thread.Sleep(2000);
+
+
+
+                        break;
+
+                    case "10":
+
+                        Console.WriteLine("Valor mes gran: ");
+                        int valorGran = valorMesGran(taulaPlena, nElementsPlena);
+                        Console.WriteLine(valorGran);
+                        Thread.Sleep(2000);
+
+
+
+                        break;
+
+                    case "11":
+
+                        Console.WriteLine("Posicio valor mes gran: ");
+                        int posValorGran = posicioValorMesGran(taulaPlena, nElementsPlena);
+                        Console.WriteLine(posValorGran);
+                        Thread.Sleep(2000);
+
+
+
                         break;
 
                     default:
-                        
+
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("No es un numero correcte!");                       
+                        Console.WriteLine("No es un numero correcte!");
                         break;
                 }
-               
+
                 num = Menu();
 
             }
@@ -107,9 +170,9 @@ namespace Menu_arrays
                 "8. Mostra els N nombres Primers.\n",
                 "9. Sortir.\n"};
 
-            
+
             Console.WriteLine(new String('*', Console.WindowWidth));
-            
+
             Console.WriteLine();
             Console.WriteLine(@"
                                               _                       _   _      
@@ -121,7 +184,7 @@ namespace Menu_arrays
 ");
             Console.WriteLine();
 
-            
+
 
             foreach (string opcio in menu)
             {
@@ -131,14 +194,14 @@ namespace Menu_arrays
 
                 Console.WriteLine(opcio);
             }
-            
 
-            
+
+
             Console.WriteLine();
             Console.WriteLine(new String('*', Console.WindowWidth));
-            
+
             Console.Write("Selecciona una opció: ");
-            
+
             string num = Console.ReadLine();
 
 
@@ -167,7 +230,7 @@ namespace Menu_arrays
         static void MostrarTaula(int[] taula)
         {
             Console.Clear();
-            for(int i=0; i<taula.Length;  i++)
+            for (int i = 0; i < taula.Length; i++)
                 Console.WriteLine(taula[i]);
             Thread.Sleep(3000);
 
@@ -186,8 +249,8 @@ namespace Menu_arrays
         {
             Random rnd = new Random();
 
-            
-            for (int i=0; i < taulaBuida.Length; i++)
+
+            for (int i = 0; i < taulaBuida.Length; i++)
             {
                 int n = rnd.Next(101);
                 taulaBuida[i] = n;
@@ -219,13 +282,118 @@ namespace Menu_arrays
 
             for (int i = 0; i < n2; i++)
             {
-                int n = rnd.Next(limitInf,limitSup+1);
+                int n = rnd.Next(limitInf, limitSup + 1);
                 taulaBuida[i] = n;
             }
 
             return taulaBuida;
 
+
+
+
         }
 
+        static int[] EmplenarTaulaBuidaTeclat(int[] taulaBuida)
+        {
+
+
+            Console.WriteLine("n: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int i = 0;
+
+            while (n != -1)
+            {
+                Console.Clear();
+                taulaBuida[i] = n;
+                Console.WriteLine("Entra cada numero que vulguis afegir, acaba amb -1: ");
+                n = Convert.ToInt32(Console.ReadLine());
+                i++;
+            }
+
+
+            return taulaBuida;
+
+
+        }
+
+        static int[] AfegirNouValor(int[] taulaBuida, ref int nElements, int valorNou)
+        {
+
+
+            taulaBuida[nElements] = valorNou;
+            nElements++;
+
+
+            return taulaBuida;
+
+
+        }
+
+        static int MitjanaTaula(int[] taulaPlena, int nElements)
+        {
+
+            int suma = 0;
+            for (int i = 0; i < nElements; i++)
+            {
+                suma += taulaPlena[i];
+
+
+            }
+
+            return suma / nElements;
+
+
+        }
+
+        static int valorMesGran(int[] taulaPlena, int nElements)
+        {
+            int valorGran = int.MinValue;
+
+
+            for (int i = 0; i < nElements - 1; i++)
+            {
+
+                if (taulaPlena[i] > valorGran)
+
+                    valorGran = taulaPlena[i];
+
+
+            }
+
+            return valorGran;
+
+
+        }
+
+        static int posicioValorMesGran(int[] taulaPlena, int nElements)
+        {
+            int valorGran = int.MinValue;
+            int cont = 0, pos = 0;
+
+
+            for (int i = 0; i < nElements - 1; i++)
+            {
+
+                if (taulaPlena[i] > valorGran)
+                {
+
+                    valorGran = taulaPlena[i];
+
+                    pos = cont;
+
+
+                    
+
+                }
+
+                cont++;
+
+
+            }
+            return pos;
+
+        }
     }
+
 }
+
