@@ -7,10 +7,18 @@ namespace Menu_arrays
     class Program
     {
         static void Main(string[] args)
+
+
+
         {
+
+            Console.WindowWidth = 110;
+            Console.WindowHeight = 50;
+
             int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 870, 128, 49, 110, 121, 12, 13, 44, 85, 0, 0, 0, 0, 0, 0, 10000, 1 };
             int nElementsPlena = 15;
-            Console.WriteLine(nElementsPlena);
+            int copiaNelementsPlena= nElementsPlena;
+            int[] copiaTaulaPlena = taulaPlena;
             int[] taulaBuida = new int[100];
 
             string num = Menu();
@@ -26,6 +34,7 @@ namespace Menu_arrays
                     case "1":
 
                         MostrarTaula(taulaPlena);
+                        ContadorRetorn();
                         break;
 
                     case "2":
@@ -33,12 +42,13 @@ namespace Menu_arrays
                         Console.WriteLine("Quant elements de la taula vols mostrar: ");
                         n = Convert.ToInt32(Console.ReadLine());
                         MostrarTaulaN(taulaPlena, n);
+                        ContadorRetorn();
                         break;
                     case "3":
 
                         taulaBuida = EmplenarTaulaBuida(taulaBuida);
-                        MostrarTaula(taulaBuida);
-                        Thread.Sleep(3000);
+                        MostrarTaula(taulaBuida);                       
+                        ContadorRetorn();
                         taulaBuida = new int[30];
 
                         break;
@@ -48,8 +58,9 @@ namespace Menu_arrays
                         n2 = Convert.ToInt32(Console.ReadLine());
                         taulaBuida = EmplenarTaulaBuidaN(taulaBuida, n2);
                         MostrarTaula(taulaBuida);
-                        Thread.Sleep(3000);
+                        
                         taulaBuida = new int[30];
+                        ContadorRetorn();
                         break;
                     case "5":
                         int n3, limitS, limitI;
@@ -60,18 +71,18 @@ namespace Menu_arrays
                         Console.WriteLine("Limit Inferior: ");
                         limitI = Convert.ToInt32(Console.ReadLine());
                         taulaBuida = EmplenarTaulaBuidaNlimit(taulaBuida, n3, limitI, limitS);
-                        MostrarTaula(taulaBuida);
-                        Thread.Sleep(3000);
+                        MostrarTaula(taulaBuida);                      
                         taulaBuida = new int[30];
+                        ContadorRetorn();
 
                         break;
                     case "6":
 
                         taulaBuida = EmplenarTaulaBuidaTeclat(taulaBuida);
                         MostrarTaula(taulaBuida);
-                        Thread.Sleep(3000);
+                        
                         taulaBuida = new int[30];
-
+                        ContadorRetorn();
                         break;
                     case "7":
 
@@ -89,15 +100,16 @@ namespace Menu_arrays
                             taulaBuida2[i] = n4;
                         }
 
-                        MostrarTaula(taulaBuida2);
-                        Thread.Sleep(2000);
+                       
                         AfegirNouValor(taulaBuida2, ref nElements, valorAfegir);
                         MostrarTaula(taulaBuida2);
-                        Thread.Sleep(2000);
+                        ContadorRetorn();
 
                         break;
                     case "8":
 
+                        Console.WriteLine(tornarString(taulaPlena,nElementsPlena));
+                        ContadorRetorn();
 
 
                         break;
@@ -107,7 +119,7 @@ namespace Menu_arrays
                         Console.WriteLine("Mitjana d'una taula: ");
                         int mitjana = MitjanaTaula(taulaPlena, nElementsPlena);
                         Console.WriteLine(mitjana);
-                        Thread.Sleep(2000);
+                        ContadorRetorn();
 
 
 
@@ -118,7 +130,7 @@ namespace Menu_arrays
                         
                         
                         Console.WriteLine($"El valor mes gran es {valorMesGran(taulaPlena, nElementsPlena)}");
-                        Thread.Sleep(2000);
+                        ContadorRetorn();
 
 
 
@@ -128,7 +140,7 @@ namespace Menu_arrays
 
                        
                         Console.WriteLine($"El valor mes gran {valorMesGran(taulaPlena, nElementsPlena)} es troba a la posició index {posicioValorMesGran(taulaPlena, nElementsPlena)}");
-                        Thread.Sleep(2000);
+                        ContadorRetorn();
 
 
 
@@ -142,8 +154,8 @@ namespace Menu_arrays
                             Console.WriteLine($"Valor Trobat a la posició index {posValorBuscar(taulaPlena,nElementsPlena,valor)}");
                         else
                             Console.WriteLine("Valor no Trobat");
-                        
-                        Thread.Sleep(2000);
+
+                        ContadorRetorn();
 
 
 
@@ -164,7 +176,7 @@ namespace Menu_arrays
                         }
                         else
                         Console.WriteLine($"{valor2} no trobat");
-                        continuar();
+                        ContadorRetorn();
 
 
 
@@ -178,10 +190,11 @@ namespace Menu_arrays
                         MostrarTaula(taulaPlena);
                         taulaPlena = eliminarValor(taulaPlena, ref nElementsPlena, posBorrar);
                         MostrarTaulaN(taulaPlena, nElementsPlena);
-                       
+                        taulaPlena = copiaTaulaPlena;
+                        nElementsPlena = copiaNelementsPlena;
 
 
-                        continuar();
+                        ContadorRetorn();
 
 
 
@@ -208,32 +221,44 @@ namespace Menu_arrays
 
         }
 
+        static string FormatMenu(string text)
+        {
+            text = new string(' ', 23) + text;
+            return text;
+        }
+
         static string Menu()
         {
 
 
             string[] menu = {
-                "1. Troba el Màxim de dos nombres.\n",
-                "2. Troba el Maxim Comu Divisor de dos nombres.\n",
-                "3. Troba el Minim Comú Múltiple de dos nombres.\n",
-                "4. Calcula el Factorial d'un nombre.\n",
-                "5. Calcula la Combinatoria de dos nombres.\n",
-                "6. Calcula el Major Divisor d'un nombre.\n",
-                "7. Indica si el nombre es Primer.\n",
-                "8. Mostra els N nombres Primers.\n",
-                "9. Sortir.\n"};
+                "1. Mostra els valors de la taula.\n",
+                "2. Mostra la taula fins a N elements.\n",
+                "3. Omple la taula amb valors aleatoris de 0 a 100.\n",
+                "4. Omple amb valors aleatoris fins a N elements.\n",
+                "5. Omple amb valors aleatoris fins a N elements amb limit superior i inferior.\n",
+                "6. Omple la taula per teclat.\n",
+                "7. Afegeix un valor nou a la taula.\n",
+                "8. Mostra la taula detallada en text.\n",
+                "9. Calcula el valor mitjà de la taula.\n",
+                "10. Troba el valor mes gran de la taula.\n",
+                "11. Troba la posició del valor mes gran de la taula.\n",
+                "12. Busca un valor dins la taula, si el troba n'indica la posició.\n",
+                "13. Busca la primera posició d'un valor a partir de N.\n",
+                "14. Elimina un valor en una determinada posició.\n",
+                "15. Sortir.\n"};
 
 
-            Console.WriteLine(new String('*', Console.WindowWidth));
+        Console.WriteLine(new String('*', Console.WindowWidth));
 
             Console.WriteLine();
             Console.WriteLine(@"
-                                              _                       _   _      
-        /\/\   ___ _ __  _ //_    /\/\   __ _| |_ ___ _ __ ___   _\\_| |_(_) ___ 
-       /    \ / _ \ '_ \| | | |  /    \ / _` | __/ _ \ '_ ` _ \ / _` | __| |/ __|
-      / /\/\ \  __/ | | | |_| | / /\/\ \ (_| | ||  __/ | | | | | (_| | |_| | (__ 
-      \/    \/\___|_| |_|\__,_| \/    \/\__,_|\__\___|_| |_| |_|\__,_|\__|_|\___|
-                                                                             
+                        __  __                        _        _              _           
+                       |  \/  | ___ _ __  _   _    __| | ___  | |_ __ _ _   _| | ___  ___ 
+                       | |\/| |/ _ \ '_ \| | | |  / _` |/ _ \ | __/ _` | | | | |/ _ \/ __|
+                       | |  | |  __/ | | | |_| | | (_| |  __/ | || (_| | |_| | |  __/\__ \
+                       |_|  |_|\___|_| |_|\__,_|  \__,_|\___|  \__\__,_|\__,_|_|\___||___/
+                                                                    
 ");
             Console.WriteLine();
 
@@ -245,7 +270,7 @@ namespace Menu_arrays
 
 
 
-                Console.WriteLine(opcio);
+                Console.WriteLine(FormatMenu(opcio));
             }
 
 
@@ -545,6 +570,21 @@ namespace Menu_arrays
 
 
         } 
+
+        static string tornarString(int[] taulaPlena, int nElements)
+        {
+
+            string taulaText = "";
+
+            for (int i=0; i<nElements;i++)
+            {
+                taulaText += $"En l'index {i} trobem el valor {taulaPlena[i]}\n";
+            }
+
+            taulaText += "Hem arribat a l'ultim element vàlid de la taula";
+
+            return taulaText;
+        }
         
     }    
 }
