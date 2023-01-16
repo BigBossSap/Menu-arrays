@@ -255,8 +255,7 @@ namespace Menu_arrays
                 Console.Clear();
             }
 
-            if (num == "9")
-                Console.WriteLine("num Incorrecte");
+          
 
 
 
