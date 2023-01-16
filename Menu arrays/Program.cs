@@ -20,6 +20,8 @@ namespace Menu_arrays
             int nElementsPlena = 15;          
             int copiaNelementsPlena= nElementsPlena;
             int[] copiaTaulaPlena = taulaPlena;
+
+
             int[] taulaBuida = new int[100];
 
             string num = Menu();
@@ -234,6 +236,7 @@ namespace Menu_arrays
                             ContadorRetorn();
                         }
 
+                        
                             break;
 
                     case "17":
@@ -249,7 +252,7 @@ namespace Menu_arrays
                 }
 
                 num = Menu();
-
+                Console.Clear();
             }
 
             if (num == "9")
@@ -295,7 +298,7 @@ namespace Menu_arrays
                 "Llista 8b: \n",
                 "15(2).Elimina totes les aparicions d'un valor en una taula.\n",
                 "16(3).Esta la taula ordenada.\n",
-                "15. Sortir.\n"};
+                "17. Sortir.\n"};
 
 
         Console.WriteLine(new String('*', Console.WindowWidth));
@@ -337,6 +340,7 @@ namespace Menu_arrays
         }
         static void ContadorRetorn()
         {
+            
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
@@ -383,7 +387,7 @@ namespace Menu_arrays
 
             for (int i = 0; i < taulaBuida.Length; i++)
             {
-                int n = rnd.Next(101);
+                int n = rnd.Next(1,101);
                 taulaBuida[i] = n;
             }
 
