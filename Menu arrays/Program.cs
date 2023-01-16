@@ -15,8 +15,9 @@ namespace Menu_arrays
             Console.WindowWidth = 110;
             Console.WindowHeight = 50;
 
-            int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 870, 128, 49, 110, 121, 12, 13, 44, 85, 0, 0, 0, 0, 0, 0, 10000, 1 };
-            int nElementsPlena = 15;
+            
+            int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 870, 128, 49, 110, 121, 25, 13, 44, 25, 0, 0, 0, 0, 0, 0, 10000, 1 };           
+            int nElementsPlena = 15;          
             int copiaNelementsPlena= nElementsPlena;
             int[] copiaTaulaPlena = taulaPlena;
             int[] taulaBuida = new int[100];
@@ -24,7 +25,7 @@ namespace Menu_arrays
             string num = Menu();
             Console.Clear();
 
-            while (num != "15")
+            while (num != "20")
             {
 
 
@@ -194,8 +195,8 @@ namespace Menu_arrays
                         MostrarTaula(taulaPlena);
                         taulaPlena = eliminarValor(taulaPlena, ref nElementsPlena, posBorrar);
                         MostrarTaulaN(taulaPlena, nElementsPlena);
-                        taulaPlena = copiaTaulaPlena;
-                        nElementsPlena = copiaNelementsPlena;
+                        taulaPlena = copiaTaulaPlena; // Per deixar la taula com al principi.
+                        nElementsPlena = copiaNelementsPlena; // Per deixar el n Elements com al principi.
 
 
                         ContadorRetorn();
@@ -204,6 +205,39 @@ namespace Menu_arrays
 
 
                         break;
+
+                    case "15":
+
+                        int valorBorrar2;
+                        Console.WriteLine();
+                        Console.Write(Format("Valor a borrar: "));
+                        valorBorrar2 = Convert.ToInt32(Console.ReadLine());
+                        borrarValorRepetit(taulaPlena, ref nElementsPlena, valorBorrar2);
+                        MostrarTaulaN(taulaPlena, nElementsPlena);
+                        taulaPlena = copiaTaulaPlena; // Per deixar la taula com al principi.
+                        nElementsPlena = copiaNelementsPlena; // Per deixar el nElements com al principi.
+                        ContadorRetorn();
+
+                        break;
+
+                    case "16":
+                        if (ordenadaOno(taulaPlena, nElementsPlena))
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine(Format("La taula esta ordenada!"));
+                            ContadorRetorn();
+                        }
+
+                        else {
+                            Console.WriteLine();
+                            Console.WriteLine(Format("La taula no esta ordenada!"));
+                            ContadorRetorn();
+                        }
+
+                            break;
+
+                    case "17":
+
 
                     default:
 
@@ -258,6 +292,9 @@ namespace Menu_arrays
                 "12. Busca un valor dins la taula, si el troba n'indica la posició.\n",
                 "13. Busca la primera posició d'un valor a partir de N.\n",
                 "14. Elimina un valor en una determinada posició.\n",
+                "Llista 8b: \n",
+                "15(2).Elimina totes les aparicions d'un valor en una taula.\n",
+                "16(3).Esta la taula ordenada.\n",
                 "15. Sortir.\n"};
 
 
@@ -563,6 +600,7 @@ namespace Menu_arrays
         static int[] eliminarValor(int[] taulaPlena, ref int nElements, int posBorrar)
         {
 
+
             if (posBorrar == nElements)
             {
                 nElements--;
@@ -597,7 +635,60 @@ namespace Menu_arrays
 
             return taulaText;
         }
-        
-    }    
+
+        static int[] borrarValorRepetit(int[] taulaPlena, ref int nElements, int valorBorrar)
+        {
+            int pos = 0;
+            for (int i=0; i<nElements;i++)
+            {
+
+                
+
+                if (taulaPlena[i]==valorBorrar)
+                {
+                   
+
+                   
+
+                        for (int j = pos; j < nElements-1; j++)
+                        {
+                            taulaPlena[j] = taulaPlena[j + 1];
+                            
+                        }
+
+                    nElements--;
+                }
+
+                pos++;
+
+                
+
+            }
+
+
+
+            return taulaPlena;
+        }
+
+        static bool ordenadaOno (int[] taulaPlena,  int nElements)
+        {
+
+            bool ordenada = true;
+
+            for(int i=0; i<nElements-1 && ordenada==true; i++)
+            {
+
+                if (taulaPlena[i] > taulaPlena[i + 1])
+                    ordenada = false;
+
+            }
+
+            return ordenada;
+
+
+
+        }
+
+    }
 }
 
