@@ -32,7 +32,7 @@ namespace Menu_arrays
                 switch (num)
                 {
                     case "1":
-
+                        Console.Clear();
                         MostrarTaula(taulaPlena);
                         ContadorRetorn();
                         break;
@@ -45,7 +45,7 @@ namespace Menu_arrays
                         ContadorRetorn();
                         break;
                     case "3":
-
+                        Console.WriteLine();
                         taulaBuida = EmplenarTaulaBuida(taulaBuida);
                         MostrarTaula(taulaBuida);                       
                         ContadorRetorn();
@@ -54,49 +54,53 @@ namespace Menu_arrays
                         break;
                     case "4":
                         int n2;
-                        Console.WriteLine("Quant elements vols omplir: ");
+                        Console.WriteLine();
+                        Console.Write(Format("Quant elements vols omplir: "));
                         n2 = Convert.ToInt32(Console.ReadLine());
                         taulaBuida = EmplenarTaulaBuidaN(taulaBuida, n2);
-                        MostrarTaula(taulaBuida);
+                        MostrarTaulaN(taulaBuida, n2);
                         
                         taulaBuida = new int[30];
                         ContadorRetorn();
                         break;
                     case "5":
                         int n3, limitS, limitI;
-                        Console.WriteLine("Quant elements vols omplir: ");
+                        Console.WriteLine();
+                        Console.Write(Format("Quant elements vols omplir: "));
                         n3 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Limit Superior: ");
+                        Console.Write(Format("Limit Superior: "));
                         limitS = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine("Limit Inferior: ");
+                        Console.Write(Format("Limit Inferior: "));
                         limitI = Convert.ToInt32(Console.ReadLine());
                         taulaBuida = EmplenarTaulaBuidaNlimit(taulaBuida, n3, limitI, limitS);
-                        MostrarTaula(taulaBuida);                      
+                        MostrarTaulaN(taulaBuida, n3);                      
                         taulaBuida = new int[30];
                         ContadorRetorn();
 
                         break;
                     case "6":
-
-                        taulaBuida = EmplenarTaulaBuidaTeclat(taulaBuida);
-                        MostrarTaula(taulaBuida);
+                        int nElementsTeclat=0;
+                        taulaBuida = EmplenarTaulaBuidaTeclat(taulaBuida, ref nElementsTeclat);
+                        MostrarTaulaN(taulaBuida, nElementsTeclat);
                         
                         taulaBuida = new int[30];
                         ContadorRetorn();
                         break;
                     case "7":
 
-                        Console.WriteLine("Quants elements te la taula? ");
+                        Console.WriteLine();
+                        Console.Write(Format("Quants elements te la taula? "));
                         int nElements = Convert.ToInt32(Console.ReadLine());
-                        int[] taulaBuida2 = new int[nElements + 1];
-                        Console.WriteLine("Nou valor: ");
+                        int[] taulaBuida2 = new int[nElements+1];
+                        Console.WriteLine();
+                        Console.Write(Format("Nou valor: "));
                         int valorAfegir = Convert.ToInt32(Console.ReadLine());
                         Random rnd = new Random();
 
 
                         for (int i = 0; i < nElements; i++)
                         {
-                            int n4 = rnd.Next(101);
+                            int n4 = rnd.Next(1,101);
                             taulaBuida2[i] = n4;
                         }
 
@@ -107,7 +111,7 @@ namespace Menu_arrays
 
                         break;
                     case "8":
-
+                        Console.WriteLine();
                         Console.WriteLine(tornarString(taulaPlena,nElementsPlena));
                         ContadorRetorn();
 
@@ -205,7 +209,8 @@ namespace Menu_arrays
 
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("No es un numero correcte!");
+                        Console.WriteLine(Format("No es una opció correcte!"));
+                        ContadorRetorn();
                         break;
                 }
 
@@ -224,6 +229,13 @@ namespace Menu_arrays
         static string FormatMenu(string text)
         {
             text = new string(' ', 23) + text;
+            return text;
+        }
+
+        static string Format(string text)
+        {
+
+            text = new string(' ', ((Console.WindowWidth - (text.Length)) / 2)) + text;
             return text;
         }
 
@@ -278,7 +290,7 @@ namespace Menu_arrays
             Console.WriteLine();
             Console.WriteLine(new String('*', Console.WindowWidth));
 
-            Console.Write("Selecciona una opció: ");
+            Console.Write(FormatMenu("Selecciona una opció: "));
 
             string num = Console.ReadLine();
 
@@ -291,31 +303,27 @@ namespace Menu_arrays
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("Presiona qualsevol tecla per continuar...");
+            Console.WriteLine(Format("Presiona qualsevol tecla per continuar..."));
             Console.ReadKey();
 
             for (int i = 3; i >= 1; i--)
             {
                 Console.Clear();
                 Console.WriteLine();
-                Console.WriteLine($"Tornant al menu en {i} segons...");
+                Console.WriteLine(Format($"Tornant al menu en {i} segons..."));
                 Thread.Sleep(1000);
 
             }
             Console.Clear();
         }
 
-        static void continuar()
-        {
-            Console.WriteLine("Presiona per continuar: ");
-            Console.ReadKey();
-        }
+       
         static void MostrarTaula(int[] taula)
         {
             Console.Clear();
+            Console.WriteLine();
             for (int i = 0; i < taula.Length; i++)
-                Console.WriteLine(taula[i]);
-            Thread.Sleep(3000);
+                Console.WriteLine(Format(Convert.ToString(taula[i])));
 
         }
 
@@ -324,9 +332,10 @@ namespace Menu_arrays
         static void MostrarTaulaN(int[] taula, int n)
         {
             Console.Clear();
+            Console.WriteLine();
             for (int i = 0; i < n; i++)
-                Console.WriteLine(taula[i]);
-            Thread.Sleep(3000);
+                Console.WriteLine(Format(Convert.ToString(taula[i])));
+            
 
         }
 
@@ -378,20 +387,22 @@ namespace Menu_arrays
 
         }
 
-        static int[] EmplenarTaulaBuidaTeclat(int[] taulaBuida)
+        static int[] EmplenarTaulaBuidaTeclat(int[] taulaBuida, ref int nElements)
         {
 
-
-            Console.WriteLine("n: ");
-            int n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
+            Console.Write(Format("Entra cada numero que vulguis afegir, acaba amb -1: "));
+            int n = Convert.ToInt32(Console.ReadLine());           
             int i = 0;
 
             while (n != -1)
             {
                 Console.Clear();
                 taulaBuida[i] = n;
-                Console.WriteLine("Entra cada numero que vulguis afegir, acaba amb -1: ");
+                Console.WriteLine();
+                Console.Write(Format("Entra cada numero que vulguis afegir, acaba amb -1: "));
                 n = Convert.ToInt32(Console.ReadLine());
+                nElements++;
                 i++;
             }
 
@@ -578,10 +589,11 @@ namespace Menu_arrays
 
             for (int i=0; i<nElements;i++)
             {
-                taulaText += $"En l'index {i} trobem el valor {taulaPlena[i]}\n";
+                taulaText += Format($"En l'index {i} trobem el valor {taulaPlena[i]}\n\n");
+                
             }
 
-            taulaText += "Hem arribat a l'ultim element vàlid de la taula";
+            taulaText += Format("Hem arribat a l'ultim element vàlid de la taula");
 
             return taulaText;
         }
