@@ -16,7 +16,7 @@ namespace Menu_arrays
             Console.WindowHeight = 50;
 
             
-            int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 870, 128, 49, 110, 121, 25, 13, 44, 25, 0, 0, 0, 0, 0, 0, 10000, 1 };           
+            int[] taulaPlena = { 32, 25, 38, 25, 46, 12, 870, 128, 49, 110, 121, 25, 13, 44, 25, 66, 0, 0, 0, 0, 0, 10000, 1 };           
             int nElementsPlena = 15;          
             int copiaNelementsPlena= nElementsPlena;
             int[] copiaTaulaPlena = taulaPlena;
